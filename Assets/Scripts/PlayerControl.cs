@@ -14,12 +14,12 @@ public class PlayerControl : MonoBehaviour
         else
             transform.Translate(-Vector2.right * speed * Time.deltaTime);
 
-        if (transform.position.x >= 5.4f)
+        if (transform.position.x >= 3.91f)
         {
             dirRight = false;
         }
 
-        if (transform.position.x <= -5.4f)
+        if (transform.position.x <= -3.4f)
         {
             dirRight = true;
         }
