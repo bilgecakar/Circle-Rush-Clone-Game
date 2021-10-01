@@ -9,8 +9,8 @@ public class EnemyControl : MonoBehaviour
 
     
     [Space(3)]
-    public float waitingForNextSpawn = 10;
-    public float theCountdown = 10;
+    public float waitingForNextSpawn = 1;
+    public float theCountdown = 1;
 
     
     [Header("X Spawn Range")]
