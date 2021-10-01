@@ -1,38 +1,52 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyControl : MonoBehaviour
 {
-    [SerializeField] float rotation = 50f;
-    [SerializeField] GameObject enemy;
-    [SerializeField] float repeatTime = 10f;
-    GameObject player;
-        // Start is called before the first frame update
+  
+    public GameObject[] enemies;
+
+    
+    [Space(3)]
+    public float waitingForNextSpawn = 10;
+    public float theCountdown = 10;
+
+    
+    [Header("X Spawn Range")]
+    public float xMin;
+    public float xMax;
+
+   
+    [Header("Y Spawn Range")]
+    public float yMin;
+    public float yMax;
+
+
     void Start()
     {
-        
-        InvokeRepeating("onSpawn", 1f, repeatTime);
-  
-
-
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
-       
-        transform.Rotate(0, 0, Time.deltaTime * rotation);
-
-
+     
+        theCountdown -= Time.deltaTime;
+        if (theCountdown <= 0)
+        {
+            SpawnGoodies();
+            theCountdown = waitingForNextSpawn;
+        }
     }
 
-    void onSpawn()
+
+    void SpawnGoodies()
     {
-        player = GameObject.FindWithTag("Player");
-        var position = new Vector2(Random.Range(-4.0f, 4.0f), Random.Range(12.0f, 13.0f));
-        Instantiate(enemy, position, Quaternion.identity);
-        transform.Translate(-player.transform.position.x * Time.deltaTime, -player.transform.position.y * Time.deltaTime, 0);
 
+        Vector2 pos = new Vector2(Random.Range(xMin, xMax), Random.Range(yMin, yMax));
+        GameObject enemy = enemies[Random.Range(0, enemies.Length)];
+        Instantiate(enemy, pos, Quaternion.identity);
+
+     
     }
+
 }
