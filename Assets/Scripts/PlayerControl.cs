@@ -1,15 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
 {
     private bool dirRight = true;
     [SerializeField] float speed = 2.0f;
+    int sayi = 0;
 
+
+   
+
+    private void Start()
+    {
+     
+    }
     void Update()
     {
-        if (dirRight)
+      
+        if (dirRight )
             transform.Translate(Vector2.right * speed * Time.deltaTime);
         else
             transform.Translate(-Vector2.right * speed * Time.deltaTime);
