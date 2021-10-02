@@ -3,35 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerControl : MonoBehaviour
+ namespace TouchEevent
 {
-    private bool dirRight = true;
-    [SerializeField] float speed = 2.0f;
-    int sayi = 0;
-
-
-   
-
-    private void Start()
+    [CreateAssetMenu(menuName = "Assets/Scripts/PlayerController")]
+    public class PlayerControl : MonoBehaviour
     {
-     
-    }
-    void Update()
-    {
-      
-        if (dirRight )
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
-        else
-            transform.Translate(-Vector2.right * speed * Time.deltaTime);
-
-        if (transform.position.x >= 3.91f)
+        public bool dirRight = true;
+        [SerializeField] float speed = 2.0f;
+        int sayi = 0;
+        private Touch theTouch;
+        private float timeTouchEnded;
+        private float displayTime = 0.5f;
+        private void Start()
         {
-            dirRight = false;
+
         }
-
-        if (transform.position.x <= -3.4f)
+        void Update()
         {
-            dirRight = true;
+
+            if (dirRight)
+                transform.Translate(Vector2.right * speed * Time.deltaTime);
+            else
+                transform.Translate(-Vector2.right * speed * Time.deltaTime);
+
+            if (transform.position.x >= 3.91f)
+            {
+                dirRight = false;
+            }
+
+            if (transform.position.x <= -3.4f)
+            {
+                dirRight = true;
+            }
+
+            if (Input.touchCount > 0)
+            {
+                theTouch = Input.GetTouch(0);
+
+                if (theTouch.phase == TouchPhase.Began && dirRight == true)
+                    dirRight = false;
+                else if(theTouch.phase == TouchPhase.Began && dirRight == false)
+                    dirRight = true;
+
+            }
+         
         }
     }
 }
+
