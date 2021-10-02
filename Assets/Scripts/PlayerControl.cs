@@ -5,19 +5,13 @@ using UnityEngine.UI;
 
  namespace TouchEevent
 {
-    [CreateAssetMenu(menuName = "Assets/Scripts/PlayerController")]
+   
     public class PlayerControl : MonoBehaviour
     {
         public bool dirRight = true;
         [SerializeField] float speed = 2.0f;
-        int sayi = 0;
         private Touch theTouch;
-        private float timeTouchEnded;
-        private float displayTime = 0.5f;
-        private void Start()
-        {
 
-        }
         void Update()
         {
 
