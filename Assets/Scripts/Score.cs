@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Score
-{
-    [CreateAssetMenu (menuName ="Assets/Scripts/Score")]
-
     public class Score : MonoBehaviour
     {
         private int score = 0;
         public int highScore = 0;
         [SerializeField] Text scoreText;
         [SerializeField] Text highScoreText;
-
+    
+        
 
 
         private void Start()
         {
+       
             highScore = PlayerPrefs.GetInt("highScore", highScore);
-            //highScoreText.text = "" + highScore.ToString();
+            highScoreText.text = "" + highScore.ToString();
+           
         }
 
         private void Update()
@@ -50,5 +49,5 @@ namespace Score
             PlayerPrefs.Save();
         }
     }
-}
+
 
