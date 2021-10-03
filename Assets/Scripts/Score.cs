@@ -3,46 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Score : MonoBehaviour
+namespace Score
 {
-    private int score = 0;
-    private int highScore = 0;
-    [SerializeField] Text scoreText;
-    [SerializeField] Text highScoreText;
+    [CreateAssetMenu (menuName ="Assets/Scripts/Score")]
 
-
-
-    private void Start()
+    public class Score : MonoBehaviour
     {
-        highScore = PlayerPrefs.GetInt("highScore", highScore);
-        highScoreText.text = "" + highScore.ToString();
-    }
+        private int score = 0;
+        public int highScore = 0;
+        [SerializeField] Text scoreText;
+        [SerializeField] Text highScoreText;
 
-    private void Update()
-    {
-        
-        if (score > highScore)
-            highScore = score;
-            PlayerPrefs.SetInt("highScore", highScore);
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
 
-        
-        if (collision.gameObject.tag == "RedEnemy")
+        private void Start()
         {
-            score++;
-            Destroy(collision.gameObject);
-            // SceneManager.LoadScene("GameOver");
-            scoreText.text = score.ToString();
+            highScore = PlayerPrefs.GetInt("highScore", highScore);
+            //highScoreText.text = "" + highScore.ToString();
+        }
 
+        private void Update()
+        {
+
+            if (score > highScore)
+                highScore = score;
+            PlayerPrefs.SetInt("highScore", highScore);
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+
+
+            if (collision.gameObject.tag == "RedEnemy")
+            {
+                score++;
+                Destroy(collision.gameObject);
+                // SceneManager.LoadScene("GameOver");
+                scoreText.text = score.ToString();
+
+            }
+        }
+
+        private void OnDestroy()
+        {
+            PlayerPrefs.SetInt("highScore", highScore);
+            PlayerPrefs.Save();
         }
     }
-
-    private void OnDestroy()
-    {
-        PlayerPrefs.SetInt("highScore", highScore);
-        PlayerPrefs.Save();
-    }
 }
+
