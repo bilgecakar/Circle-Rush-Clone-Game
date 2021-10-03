@@ -6,9 +6,30 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     private int score = 0;
+    private int highScore = 0;
     [SerializeField] Text scoreText;
+    [SerializeField] Text highScoreText;
+
+
+
+    private void Start()
+    {
+        highScore = PlayerPrefs.GetInt("highScore", highScore);
+        highScoreText.text = "" + highScore.ToString();
+    }
+
+    private void Update()
+    {
+        
+        if (score > highScore)
+            highScore = score;
+            PlayerPrefs.SetInt("highScore", highScore);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        
         if (collision.gameObject.tag == "RedEnemy")
         {
             score++;
@@ -17,5 +38,11 @@ public class Score : MonoBehaviour
             scoreText.text = score.ToString();
 
         }
+    }
+
+    private void OnDestroy()
+    {
+        PlayerPrefs.SetInt("highScore", highScore);
+        PlayerPrefs.Save();
     }
 }

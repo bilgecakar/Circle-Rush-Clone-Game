@@ -9,7 +9,6 @@ public class VolumeSettings : MonoBehaviour
     [SerializeField] Button turnOff;
     [SerializeField] Button turnOn;
 
-
     private void Start()
     {
         turnOff.image.enabled = false;
